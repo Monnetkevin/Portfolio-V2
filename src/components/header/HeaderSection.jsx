@@ -5,7 +5,7 @@ const Portfolio = () => {
   return (
     <Container
       maxWidth="xl"
-      id="A propos"
+      id="about"
       sx={{
         color: "#ffffff",
         minHeight: "100vh",
@@ -24,7 +24,7 @@ const Portfolio = () => {
             <Box
               sx={{
                 width: "25%",
-                height: "2px", // Adjust height if needed
+                height: "3px",
                 backgroundColor: "#005C53",
                 my: 3,
               }}

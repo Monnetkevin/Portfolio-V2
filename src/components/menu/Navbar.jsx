@@ -18,8 +18,8 @@ const drawerWidth = 240;
 const navItems = [
   { menu: "A propos", href: "#about" },
   { menu: "Compétences", href: "#skills" },
-  { menu: "Parcours", href: "#portfolio" },
   { menu: "Réalisations", href: "#projects" },
+  { menu: "Parcours", href: "#portfolio" },
   { menu: "Contact", href: "#contact" },
 ];
 

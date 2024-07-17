@@ -10,7 +10,12 @@ const SkillsWrapper = ({ skills, title }) => {
         {title}
       </Typography>
       <List
-        sx={{ display: "flex", flexDirection: "column", gap: 2, color: "#fff" }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          color: "#fff",
+        }}
       >
         {skills.map(({ name, icon }) => (
           <ListItem key={name} sx={{ display: "flex", alignItems: "center" }}>
