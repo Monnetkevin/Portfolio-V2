@@ -69,16 +69,16 @@ const Portfolio = () => {
         <Grid item xs={12} md={4}>
           <Box
             component="img"
-            src="/images/moi.png"
+            src="/images/moi2.png"
             alt="Kevin Monnet"
             sx={{
-              width: { xs: "50%", md: "60%" },
+              width: { xs: "50%", md: "80%" },
               display: { xs: "flex" },
               justifyContent: "center",
               alignItems: "center",
 
               pb: { xs: "2rem" },
-              borderRadius: "2rem",
+              borderRadius: "100%",
               transform: "scaleX(-1)",
             }}
           />
