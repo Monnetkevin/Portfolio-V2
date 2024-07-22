@@ -7,41 +7,15 @@ import {
   CardContent,
   CardActions,
   Icon,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  MobileStepper,
 } from "@mui/material";
-import { RxCross2 } from "react-icons/rx";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import { useTheme } from "@mui/material/styles";
-import ButtonProject from "./ButtonProject";
 
-import SwipeableViews from "react-swipeable-views-react-18-fix";
+import { ButtonProject } from "./ButtonProject";
+
+import { ModalProject } from "./ModalProject";
 
 const ProjectsWrapper = ({ projects }) => {
   const [open, setOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [activeStep, setActiveStep] = useState(0);
-  const maxSteps = selectedProject?.images.length;
-
-  const theme = useTheme();
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleStepChange = (step: number) => {
-    setActiveStep(step);
-  };
 
   const handleClickOpen = (project) => {
     setSelectedProject(project);
@@ -61,6 +35,7 @@ const ProjectsWrapper = ({ projects }) => {
           sx={{
             position: "relative",
             maxWidth: 400,
+            m: "2rem",
           }}
         >
           <Box
@@ -77,6 +52,7 @@ const ProjectsWrapper = ({ projects }) => {
               image={project.images[0].path}
               alt={project.title}
             />
+            {/* Overlay affiché lorsque l'on glisse sur le projet */}
             <Box
               className="overlay"
               sx={{
@@ -120,94 +96,16 @@ const ProjectsWrapper = ({ projects }) => {
                 Détails
               </ButtonProject>
             </Box>
+            {/* Fin Overlay */}
 
-            {/* Modal Détail du projet */}
-            <Dialog open={open} onClose={handleClose} maxWidth="md">
-              <Box
-                component="div"
-                sx={{ display: "flex", justifyContent: "center" }}
-              >
-                <RxCross2
-                  size={30}
-                  color="red"
-                  onClick={handleClose}
-                  sx={{
-                    cursor: "pointer",
-                  }}
-                />
-              </Box>
-              <DialogTitle sx={{ display: "flex", justifyContent: "center" }}>
-                {selectedProject?.title}
-              </DialogTitle>
-              <DialogContent>
-                <SwipeableViews
-                  axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-                  index={activeStep}
-                  onChangeIndex={handleStepChange}
-                  enableMouseEvents
-                >
-                  {selectedProject?.images.map((image, index) => (
-                    <Box component="div" key={index}>
-                      {Math.abs(activeStep - index) <= 2 ? (
-                        <Box
-                          component="img"
-                          sx={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            // overflow: "hidden",
-                            width: "50%",
-                          }}
-                          src={image.path}
-                          alt={image.label}
-                        />
-                      ) : null}
-                    </Box>
-                  ))}
-                </SwipeableViews>
-                <MobileStepper
-                  steps={maxSteps}
-                  position="static"
-                  activeStep={activeStep}
-                  nextButton={
-                    <Button
-                      size="small"
-                      onClick={handleNext}
-                      disabled={activeStep === maxSteps - 1}
-                    >
-                      Suivant
-                      {theme.direction === "rtl" ? (
-                        <KeyboardArrowLeft />
-                      ) : (
-                        <KeyboardArrowRight />
-                      )}
-                    </Button>
-                  }
-                  backButton={
-                    <Button
-                      size="small"
-                      onClick={handleBack}
-                      disabled={activeStep === 0}
-                    >
-                      {theme.direction === "rtl" ? (
-                        <KeyboardArrowRight />
-                      ) : (
-                        <KeyboardArrowLeft />
-                      )}
-                      Retour
-                    </Button>
-                  }
-                />
-                <DialogContentText>
-                  {selectedProject?.content}
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                {/* <Button onClick={handleClose} color="primary">
-                  Close
-                </Button> */}
-              </DialogActions>
-            </Dialog>
+            {/* Modal Détail du projet  */}
+            {open && selectedProject && (
+              <ModalProject
+                open={open}
+                handleClose={handleClose}
+                selectedProject={selectedProject}
+              />
+            )}
             {/* Fin Modal Détail du projet */}
           </Box>
 

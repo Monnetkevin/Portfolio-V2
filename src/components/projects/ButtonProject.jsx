@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 
-const ButtonProject = ({ children, ...props }) => {
+export const ButtonProject = ({ children, ...props }) => {
   return (
     <Button
       {...props}
@@ -16,4 +16,20 @@ const ButtonProject = ({ children, ...props }) => {
     </Button>
   );
 };
-export default ButtonProject;
+
+export const ButtonProject2 = ({ children, ...props }) => {
+  return (
+    <Button
+      {...props}
+      variant="outlined"
+      sx={{
+        mr: "1rem",
+        color: "#000",
+        borderColor: "#000",
+        "&:hover": { borderColor: "#005C53", color: "#005C53" },
+      }}
+    >
+      {children}
+    </Button>
+  );
+};
