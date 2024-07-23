@@ -4,6 +4,7 @@ import HeaderSection from "../components/header/HeaderSection";
 import SkillsSection from "../components/skills/SkillsSection";
 import SectionExperiences from "../components/experiences/SectionExperiences";
 import SectionProjects from "../components/projects/SectionProjects";
+import ContactSection from "../components/contact/ContactSection";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <SkillsSection />
       <SectionProjects />
       <SectionExperiences />
+      <ContactSection />
     </Box>
   );
 }
