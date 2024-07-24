@@ -5,10 +5,12 @@ import SkillsSection from "../components/skills/SkillsSection";
 import SectionExperiences from "../components/experiences/SectionExperiences";
 import SectionProjects from "../components/projects/SectionProjects";
 import ContactSection from "../components/contact/ContactSection";
+import { useTheme } from "@mui/material/styles";
 
 export default function Home() {
+  const theme = useTheme();
   return (
-    <Box sx={{ backgroundColor: "#042940" }}>
+    <Box sx={{ backgroundColor: theme.palette.primary.main }}>
       <HeaderSection />
       <SkillsSection />
       <SectionProjects />

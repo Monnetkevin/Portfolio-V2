@@ -1,13 +1,15 @@
 import { Container, Box, Typography } from "@mui/material";
 import ContactForm from "./ContactForm";
+import { useTheme } from "@mui/material/styles";
 
 const ContactSection = () => {
+  const theme = useTheme();
   return (
     <Container maxWidth="xl" id="projects">
       <Box
         component="div"
         sx={{
-          color: "#fff",
+          color: theme.palette.text.primary,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -23,7 +25,7 @@ const ContactSection = () => {
             sx={{
               width: "35%",
               height: "3px",
-              backgroundColor: "#005C53",
+              backgroundColor: theme.palette.secondary.main,
             }}
           />
         </Box>

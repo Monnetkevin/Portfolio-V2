@@ -13,6 +13,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import ThemeToggle from "../utils/ThemeToggle";
+import { useTheme } from "@mui/material/styles";
 
 const drawerWidth = 240;
 const navItems = [
@@ -26,6 +28,7 @@ const navItems = [
 export default function DrawerAppBar(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+  const theme = useTheme();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -33,7 +36,10 @@ export default function DrawerAppBar(props: Props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography
+        variant="h6"
+        sx={{ my: 2, color: theme.palette.text.secondary }}
+      >
         Kevin Monnet
       </Typography>
       <Divider />
@@ -41,7 +47,10 @@ export default function DrawerAppBar(props: Props) {
         {navItems.map((item) => (
           <ListItem key={item.menu} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item.menu} />
+              <ListItemText
+                primary={item.menu}
+                sx={{ color: theme.palette.text.secondary }}
+              />
             </ListItemButton>
           </ListItem>
         ))}
@@ -55,14 +64,21 @@ export default function DrawerAppBar(props: Props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar component="nav" sx={{ backgroundColor: "#042940" }}>
+      <AppBar
+        component="nav"
+        sx={{ backgroundColor: theme.palette.primary.main }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{
+              mr: 2,
+              display: { sm: "none" },
+              color: theme.palette.text.primary,
+            }}
           >
             <MenuIcon />
           </IconButton>
@@ -75,11 +91,17 @@ export default function DrawerAppBar(props: Props) {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button key={item.menu} sx={{ color: "#fff" }} href={item.href}>
+              <Button
+                key={item.menu}
+                sx={{ color: theme.palette.text.primary }}
+                href={item.href}
+              >
                 {item.menu}
               </Button>
             ))}
           </Box>
+
+          <ThemeToggle />
         </Toolbar>
       </AppBar>
       <nav>

@@ -1,8 +1,9 @@
 import React from "react";
-import { useForm, useController, Controller } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Box, TextField, Select, Button } from "@mui/material";
+import { Box, TextField, Button } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 const schema = yup.object({
   nom: yup.string().required("Votre nom est requis"),
@@ -13,6 +14,23 @@ const schema = yup.object({
   sujet: yup.string().required("Veuillez choisir un sujet"),
   message: yup.string().required("Votre message est requis"),
 });
+
+const StyleTextField = () => {
+  const theme = useTheme();
+  return {
+    color: theme.palette.text.primary,
+    borderColor: theme.palette.divider, // Use divider for better contrast
+    "& label": {
+      color: theme.palette.text.secondary, // Adjust label color as needed
+    },
+    "& input": {
+      color: theme.palette.text.primary,
+    },
+    "& .MuiOutlinedInput-root": {
+      borderColor: theme.palette.divider, // Adjust border color for outlined variant
+    },
+  };
+};
 
 const ContactForm = () => {
   const {
@@ -30,17 +48,6 @@ const ContactForm = () => {
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-      {/* <TextField
-        id="nom"
-        label="Nom"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        {...field}
-        error={errors.nom}
-        helperText={errors.nom && "Votre nom est requis"}
-      /> */}
-
       <Controller
         name="name"
         id="name"
@@ -53,6 +60,7 @@ const ContactForm = () => {
             label="Nom"
             fullWidth
             margin="normal"
+            sx={StyleTextField()}
             error={!!fieldState.error}
             helperText={fieldState.error?.message || null}
             required
@@ -74,6 +82,7 @@ const ContactForm = () => {
             label="Email"
             fullWidth
             margin="normal"
+            sx={StyleTextField()}
             error={!!error}
             helperText={errors ? errors.message : null}
             required

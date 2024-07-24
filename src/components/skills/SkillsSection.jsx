@@ -2,14 +2,16 @@ import React from "react";
 import { Container, Box, Typography, Grid } from "@mui/material";
 import SkillsWrapper from "./SkillsWrapper";
 import { FRAMEWORKS_ICONS, LANGAGES_ICONS, STACKS_ICONS } from "./Skills";
+import { useTheme } from "@mui/material/styles";
 
 const SkillsSection = () => {
+  const theme = useTheme();
   return (
     <Container maxWidth="xl" id="skills">
       <Box
         component="div"
         sx={{
-          color: "#fff",
+          color: theme.palette.text.primary,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -25,7 +27,7 @@ const SkillsSection = () => {
             sx={{
               width: "35%",
               height: "3px",
-              backgroundColor: "#005C53",
+              backgroundColor: theme.palette.secondary.main,
             }}
           />
         </Box>

@@ -1,14 +1,17 @@
 import { Container, Box, Typography } from "@mui/material";
 import ProjectsWrapper from "./ProjectsWrapper";
 import { PROJECTS } from "./Projects";
+import { useTheme } from "@mui/material/styles";
 
 const SectionProjects = () => {
+  const theme = useTheme();
+
   return (
     <Container maxWidth="xl" id="projects">
       <Box
         component="div"
         sx={{
-          color: "#fff",
+          color: theme.palette.text.primary,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -24,7 +27,7 @@ const SectionProjects = () => {
             sx={{
               width: "35%",
               height: "3px",
-              backgroundColor: "#005C53",
+              backgroundColor: theme.palette.secondary.main,
             }}
           />
         </Box>

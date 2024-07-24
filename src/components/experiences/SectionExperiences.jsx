@@ -1,14 +1,16 @@
 import { Container, Box, Typography } from "@mui/material";
 import { EXPERIENCES } from "./Experiences";
 import { Chrono } from "react-chrono";
+import { useTheme } from "@mui/material/styles";
 
 const SectionExperiences = () => {
+  const theme = useTheme();
   return (
     <Container maxWidth="xl" id="portfolio">
       <Box
         component="div"
         sx={{
-          color: "#fff",
+          color: theme.palette.text.primary,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -24,7 +26,7 @@ const SectionExperiences = () => {
             sx={{
               width: "35%",
               height: "3px",
-              backgroundColor: "#005C53",
+              backgroundColor: theme.palette.secondary.main,
             }}
           />
         </Box>
@@ -36,10 +38,11 @@ const SectionExperiences = () => {
         useReadMore={false}
         hideControls={true}
         theme={{
-          primary: "#D6D58E",
-          secondary: "#005C53",
-          titleColor: "white",
-          titleColorActive: "#DBF227",
+          primary: theme.palette.experience.main,
+          secondary: theme.palette.secondary.main,
+          cardBgColor: theme.palette.background.paper,
+          titleColor: theme.palette.text.secondary,
+          titleColorActive: theme.palette.tertiary.main,
         }}
         disableToolbar
       />

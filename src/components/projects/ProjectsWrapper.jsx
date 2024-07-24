@@ -8,14 +8,17 @@ import {
   CardActions,
   Icon,
 } from "@mui/material";
-
 import { ButtonProject } from "./ButtonProject";
-
 import { ModalProject } from "./ModalProject";
+import { useTheme } from "@mui/material/styles";
+import DarkModeContext from "../context/DarkModeContext";
+import { useContext } from "react";
 
 const ProjectsWrapper = ({ projects }) => {
   const [open, setOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+  const theme = useTheme();
+  const { isDarkMode } = useContext(DarkModeContext);
 
   const handleClickOpen = (project) => {
     setSelectedProject(project);
@@ -34,6 +37,7 @@ const ProjectsWrapper = ({ projects }) => {
           key={index}
           sx={{
             position: "relative",
+            backgroundColor: theme.palette.background.default,
             maxWidth: 400,
             m: "2rem",
           }}
@@ -65,7 +69,9 @@ const ProjectsWrapper = ({ projects }) => {
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: "rgba(0, 0, 0, 0.6)",
+                backgroundColor: isDarkMode
+                  ? "rgba(0, 0, 0, 0.6)"
+                  : "rgba(255, 255, 255, 0.6)",
                 opacity: 0,
                 transition: "opacity 0.3s ease-in-out",
               }}
@@ -112,7 +118,12 @@ const ProjectsWrapper = ({ projects }) => {
           <CardContent
             sx={{ display: "flex", justifyContent: "center", mt: "2rem" }}
           >
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              sx={{ color: theme.palette.text.secondary }}
+            >
               {project.title}
             </Typography>
           </CardContent>
@@ -125,7 +136,9 @@ const ProjectsWrapper = ({ projects }) => {
             }}
           >
             {project.technologies.map((technology, index) => (
-              <Icon key={index}>{technology}</Icon>
+              <Icon sx={{ color: theme.palette.text.secondary }} key={index}>
+                {technology}
+              </Icon>
             ))}
           </CardActions>
         </Card>

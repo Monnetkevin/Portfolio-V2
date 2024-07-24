@@ -1,11 +1,19 @@
 import { Box, Typography, List, ListItem } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 const SkillsWrapper = ({ skills, title }) => {
+  const theme = useTheme();
+
   return (
     <Box>
       <Typography
         variant="h3"
-        sx={{ mt: 4, mb: 2, fontWeight: "bold", color: "#fff" }}
+        sx={{
+          mt: 4,
+          mb: 2,
+          fontWeight: "bold",
+          color: theme.palette.text.primary,
+        }}
       >
         {title}
       </Typography>
@@ -14,7 +22,7 @@ const SkillsWrapper = ({ skills, title }) => {
           display: "flex",
           flexDirection: "column",
           gap: 2,
-          color: "#fff",
+          color: theme.palette.text.primary,
         }}
       >
         {skills.map(({ name, icon }) => (

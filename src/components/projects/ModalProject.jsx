@@ -12,10 +12,25 @@ import {
 import { RxCross2 } from "react-icons/rx";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import { ButtonProject2 } from "./ButtonProject";
+import { ButtonProject2, ButtonProject } from "./ButtonProject";
 import { useTheme } from "@mui/material/styles";
 
 import SwipeableViews from "react-swipeable-views-react-18-fix";
+
+const Separator = () => {
+  const theme = useTheme();
+
+  return (
+    <Box
+      sx={{
+        width: "50%",
+        height: "3px",
+        backgroundColor: theme.palette.secondary.main,
+        my: "2rem",
+      }}
+    />
+  );
+};
 
 export const ModalProject = ({ open, handleClose, selectedProject }) => {
   const [activeStep, setActiveStep] = useState(0);
@@ -57,7 +72,13 @@ export const ModalProject = ({ open, handleClose, selectedProject }) => {
           }}
         />
       </Box>
-      <DialogTitle sx={{ display: "flex", justifyContent: "center" }}>
+      <DialogTitle
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          color: "#000",
+        }}
+      >
         {selectedProject?.title}
       </DialogTitle>
       <DialogContent>
@@ -120,26 +141,14 @@ export const ModalProject = ({ open, handleClose, selectedProject }) => {
           }
         />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Box
-            sx={{
-              width: "50%",
-              height: "3px",
-              backgroundColor: "#005C53",
-              my: "2rem",
-            }}
-          />
+          <Separator />
         </Box>
 
-        <DialogContentText>{selectedProject?.content}</DialogContentText>
+        <DialogContentText sx={{ color: "#000" }}>
+          {selectedProject?.content}
+        </DialogContentText>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Box
-            sx={{
-              width: "50%",
-              height: "3px",
-              backgroundColor: "#005C53",
-              my: "2rem",
-            }}
-          />
+          <Separator />
         </Box>
         <Box
           sx={{
@@ -157,25 +166,15 @@ export const ModalProject = ({ open, handleClose, selectedProject }) => {
         </Box>
 
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Box
-            sx={{
-              width: "50%",
-              height: "3px",
-              backgroundColor: "#005C53",
-              my: "2rem",
-            }}
-          />
+          <Separator />
         </Box>
 
         <Box component="div" sx={{ display: "flex", justifyContent: "center" }}>
           {selectedProject.github_back && selectedProject.github_front ? (
             <>
-              <ButtonProject2
-                href={selectedProject.github_back}
-                target="_blank"
-              >
+              <ButtonProject href={selectedProject.github_back} target="_blank">
                 Github back
-              </ButtonProject2>
+              </ButtonProject>
               <ButtonProject2
                 href={selectedProject.github_front}
                 target="_blank"
@@ -186,12 +185,6 @@ export const ModalProject = ({ open, handleClose, selectedProject }) => {
           ) : (
             <ButtonProject2
               variant="outlined"
-              sx={{
-                mb: 1,
-                color: "#000",
-                borderColor: "#000",
-                "&:hover": { borderColor: "#005C53", color: "#005C53" },
-              }}
               href={selectedProject.github}
               target="_blank"
             >

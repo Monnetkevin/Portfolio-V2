@@ -1,13 +1,15 @@
 import React from "react";
 import { Container, Typography, Button, Box, Grid } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 const Portfolio = () => {
+  const theme = useTheme();
   return (
     <Container
       maxWidth="xl"
       id="about"
       sx={{
-        color: "#ffffff",
+        color: theme.palette.text.primary,
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -25,7 +27,7 @@ const Portfolio = () => {
               sx={{
                 width: "25%",
                 height: "3px",
-                backgroundColor: "#005C53",
+                backgroundColor: theme.palette.secondary.main,
                 my: 3,
               }}
             />
@@ -43,13 +45,13 @@ const Portfolio = () => {
               variant="outlined"
               sx={{
                 marginRight: "1rem",
-                bgcolor: "#ffff",
-                color: "#000",
+                backgroundColor: theme.palette.text.primary,
+                borderColor: theme.palette.text.primary,
+                color: theme.palette.text.secondary,
                 "&:hover": {
-                  color: "white",
-
-                  bgcolor: "#042940",
-                  borderColor: "#fff",
+                  color: theme.palette.text.primary,
+                  backgroundColor: theme.palette.primary.main,
+                  borderColor: theme.palette.text.primary,
                 },
               }}
               href="../../../public/CV_monnet_kevin.pdf"
@@ -59,7 +61,15 @@ const Portfolio = () => {
             </Button>
             <Button
               variant="outlined"
-              sx={{ color: "#fff", borderColor: "#fff" }}
+              sx={{
+                color: theme.palette.text.primary,
+                borderColor: theme.palette.text.primary,
+                "&:hover": {
+                  color: theme.palette.text.primary,
+                  backgroundColor: theme.palette.secondary.main,
+                  borderColor: theme.palette.text.primary,
+                },
+              }}
               href="#contactForm"
             >
               Contactez-moi
