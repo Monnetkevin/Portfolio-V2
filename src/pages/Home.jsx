@@ -5,6 +5,7 @@ import SkillsSection from "../components/skills/SkillsSection";
 import SectionExperiences from "../components/experiences/SectionExperiences";
 import SectionProjects from "../components/projects/SectionProjects";
 import ContactSection from "../components/contact/ContactSection";
+import SectionFooter from "../components/footer/SectionFooter";
 import { useTheme } from "@mui/material/styles";
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
       <SectionProjects />
       <SectionExperiences />
       <ContactSection />
+      <SectionFooter />
     </Box>
   );
 }

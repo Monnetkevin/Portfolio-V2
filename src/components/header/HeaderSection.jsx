@@ -70,7 +70,7 @@ const Portfolio = () => {
                   borderColor: theme.palette.text.primary,
                 },
               }}
-              href="#contactForm"
+              href="#contact"
             >
               Contactez-moi
             </Button>

@@ -1,157 +1,250 @@
-import React from "react";
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { Box, TextField, Button } from "@mui/material";
+import {
+  Container,
+  Box,
+  TextField,
+  Button,
+  useMediaQuery,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import emailjs from "emailjs-com";
 
-const schema = yup.object({
-  nom: yup.string().required("Votre nom est requis"),
-  email: yup
-    .string()
-    .email("Veuillez entrer une adresse email valide")
-    .required("L'email est requis"),
-  sujet: yup.string().required("Veuillez choisir un sujet"),
-  message: yup.string().required("Votre message est requis"),
-});
+const NAME_REGEX = /^[A-Za-zéèëê-]+(?: [A-Za-zéèëê])*$/;
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const StyleTextField = () => {
   const theme = useTheme();
+
   return {
     color: theme.palette.text.primary,
-    borderColor: theme.palette.divider, // Use divider for better contrast
+    borderColor: theme.palette.divider,
     "& label": {
-      color: theme.palette.text.secondary, // Adjust label color as needed
+      color: theme.palette.text.primary,
     },
     "& input": {
       color: theme.palette.text.primary,
     },
+
     "& .MuiOutlinedInput-root": {
-      borderColor: theme.palette.divider, // Adjust border color for outlined variant
+      "& fieldset": {
+        borderColor: theme.palette.text.primary,
+      },
+      "&:hover fieldset": {
+        borderColor: theme.palette.text.primary,
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: theme.palette.text.primary,
+      },
+    },
+    "& label.Mui-focused": {
+      color: theme.palette.text.primary,
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: theme.palette.text.primary,
     },
   };
 };
 
 const ContactForm = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  const theme = useTheme();
+  const { control, handleSubmit, reset } = useForm();
+  const [sent, setSent] = useState(false);
 
-  const onSubmit = (data) => {
-    console.log(data); // Envoyer les données du formulaire à votre API ou serveur
-    alert("Merci pour votre message!");
+  const sendEmail = (data) => {
+    emailjs
+      .send("service_s0zsb8s", "template_vntwvbd", data, "tTlUG03W9hPbaoSd4")
+      .then(
+        (res) => {
+          setSent(true);
+        },
+        (err) => {
+          console.log(err.text);
+        },
+        reset()
+      );
   };
 
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        name="name"
-        id="name"
-        control={control}
-        defaultValue=""
-        rules={{ required: "Votre nom est requis" }}
-        render={({ field, fieldState }) => (
-          <TextField
-            {...field}
-            label="Nom"
-            fullWidth
-            margin="normal"
-            sx={StyleTextField()}
-            error={!!fieldState.error}
-            helperText={fieldState.error?.message || null}
-            required
-          />
-        )}
-      />
-      <Controller
-        name="email"
-        id="email"
-        control={control}
-        defaultValue=""
-        rules={{
-          required: "L'email est requis et doit être valide",
-          pattern: /^\S+@\S+$/i,
-        }}
-        render={({ field, fieldState: { error } }) => (
-          <TextField
-            {...field}
-            label="Email"
-            fullWidth
-            margin="normal"
-            sx={StyleTextField()}
-            error={!!error}
-            helperText={errors ? errors.message : null}
-            required
-          />
-        )}
-      />
-      <Controller
-        name="name"
-        id="name"
-        control={control}
-        defaultValue=""
-        rules={{ required: "Votre nom est requis" }}
-        render={({ field, fieldState: { error } }) => (
-          <TextField
-            {...field}
-            label="Nom"
-            fullWidth
-            margin="normal"
-            error={!!error}
-            helperText={errors ? errors.message : null}
-            required
-          />
-        )}
-      />
+    <Container maxWidth="sm">
+      <Box component="form" onSubmit={handleSubmit(sendEmail)}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Controller
+              name="name"
+              id="name"
+              control={control}
+              rules={{
+                required: { value: true, message: "le nom est requis" },
+                minLength: {
+                  value: 2,
+                  message: "Votre nom doit faire au moins 2 caractères",
+                },
+                maxLength: {
+                  value: 50,
+                  message: "Votre nom doit faire moins de 50 caractères",
+                },
+                pattern: {
+                  value: NAME_REGEX,
+                  message:
+                    "Votre nom ne doit contenir que des lettres et/ou un tiret",
+                },
+              }}
+              render={({ field, fieldState: { error } }) => (
+                <TextField
+                  {...field}
+                  label="Nom"
+                  fullWidth={matches}
+                  margin="normal"
+                  sx={StyleTextField()}
+                  error={!!error}
+                  helperText={error ? error.message : null}
+                  required
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Controller
+              name="firstName"
+              id="firstName"
+              control={control}
+              rules={{
+                required: { value: true, message: "le prénom est requis" },
+                minLength: {
+                  value: 2,
+                  message: "Votre prénom doit faire au moins 2 caractères",
+                },
+                maxLength: {
+                  value: 50,
+                  message: "Votre prénom doit faire moins de 50 caractères",
+                },
+                pattern: {
+                  value: NAME_REGEX,
+                  message:
+                    "Votre prénom ne doit contenir que des lettres et/ou un tiret",
+                },
+              }}
+              render={({ field, fieldState: { error } }) => (
+                <TextField
+                  {...field}
+                  label="Prénom"
+                  margin="normal"
+                  fullWidth={matches}
+                  sx={StyleTextField()}
+                  error={!!error}
+                  helperText={error ? error.message : null}
+                  required
+                />
+              )}
+            />
+          </Grid>
+        </Grid>
 
-      {/* <TextField
-        id="email"
-        label="Email"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        {...field}
-        error={errors.email}
-        helperText={errors.email && "L'email est requis et doit être valide"}
-      />
-
-      <Select
-        id="sujet"
-        label="Sujet"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        {...field}
-        helperText={errors.sujet && "Veuillez choisir un sujet"}
-      >
-        <option value="">Sélectionner un sujet</option>
-        <option value="general">Général</option>
-        <option value="question">Question</option>
-        <option value="collaboration">Collaboration</option>
-      </Select>
-
-      <TextField
-        id="message"
-        label="Message"
-        variant="outlined"
-        fullWidth
-        multiline
-        minRows={4}
-        margin="normal"
-        {...field}
-        onChange={onChange}
-        error={errors.message}
-        helperText={errors.message && "Votre message est requis"}
-      /> */}
-
-      <Button variant="contained" color="primary" type="submit" margin="normal">
-        Envoyer
-      </Button>
-    </Box>
+        <Controller
+          name="subject"
+          id="subject"
+          control={control}
+          rules={{
+            required: { value: true, message: "le sujet est requis" },
+            minLength: {
+              value: 3,
+              message: "Votre sujet doit faire au moins 3 caractères",
+            },
+            maxLength: {
+              value: 100,
+              message: "Votre sujet doit faire moins de 100 caractères",
+            },
+          }}
+          render={({ field, fieldState: { error } }) => (
+            <TextField
+              {...field}
+              label="Objet"
+              fullWidth
+              sx={StyleTextField()}
+              margin="normal"
+              error={!!error}
+              helperText={error ? error.message : null}
+              required
+            />
+          )}
+        />
+        <Controller
+          name="email"
+          id="email"
+          control={control}
+          rules={{
+            required: { value: true, message: "L'email est requis" },
+            pattern: {
+              value: EMAIL_REGEX,
+              message:
+                "Votre Email doit être valide et doit contenir @ et .com ou .fr",
+            },
+          }}
+          render={({ field, fieldState: { error } }) => (
+            <TextField
+              {...field}
+              label="Email"
+              fullWidth
+              margin="normal"
+              sx={StyleTextField()}
+              error={!!error}
+              helperText={error ? error.message : null}
+              required
+            />
+          )}
+        />
+        <Controller
+          name="content"
+          id="content"
+          control={control}
+          rules={{
+            required: { value: true, message: "le message est requis" },
+            minLength: {
+              value: 20,
+              message: "Votre message doit faire au moins 20 caractères",
+            },
+            maxLength: {
+              valu: 2000,
+              message: "Votre message doit faire au maximum 2000 caractères",
+            },
+          }}
+          render={({ field, fieldState: { error } }) => (
+            <TextField
+              {...field}
+              label="Message"
+              fullWidth
+              multiline
+              margin="normal"
+              rows={10}
+              sx={StyleTextField()}
+              error={!!error}
+              helperText={error ? error.message : null}
+              required
+            />
+          )}
+        />
+        <Button
+          variant="outlined"
+          color="success"
+          type="submit"
+          margin="normal"
+        >
+          Envoyer
+        </Button>
+        {sent ? (
+          <Box>
+            <Typography variant="h6" color="success">
+              Merci pour votre message !
+            </Typography>
+          </Box>
+        ) : null}
+      </Box>
+    </Container>
   );
 };
 

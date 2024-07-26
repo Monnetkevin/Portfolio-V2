@@ -5,7 +5,7 @@ import DarkModeContext from "../components/context/DarkModeContext";
 
 const ThemeMode = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(
-    localStorage.getItem(LOCAL_STORAGE_KEY === "false")
+    localStorage.getItem(LOCAL_STORAGE_KEY === true)
   );
   const theme = isDarkMode ? darkTheme : lightTheme;
 

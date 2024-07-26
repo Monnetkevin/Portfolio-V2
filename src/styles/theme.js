@@ -27,14 +27,14 @@ export const darkTheme = createTheme({
     },
     text: {
       primary: "#fff",
-      secondary: "#000",
-    }, // Couleurs de texte
+      secondary: "#000", // Couleurs de texte
+    },
     experience: {
-      main: "#D6D58E",
+      main: "#D6D58E", // Couleurs d'expérience
     },
     background: {
       paper: "#fff",
-      default: "#fff",
+      default: "#fff", // Couleurs de fond
     },
   },
 });
