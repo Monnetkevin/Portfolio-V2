@@ -38,7 +38,7 @@ const ProjectsWrapper = ({ projects }) => {
           sx={{
             position: "relative",
             backgroundColor: theme.palette.background.default,
-            maxWidth: 400,
+            width: { xl: "400px", xs: "100%" },
             m: "2rem",
           }}
         >
@@ -96,7 +96,7 @@ const ProjectsWrapper = ({ projects }) => {
                   Voir le projet
                 </ButtonProject>
               ) : (
-                <ButtonProject>Project local</ButtonProject>
+                <ButtonProject disabled>Project local</ButtonProject>
               )}
               <ButtonProject onClick={() => handleClickOpen(project)}>
                 Détails
@@ -131,14 +131,15 @@ const ProjectsWrapper = ({ projects }) => {
             sx={{
               display: "flex",
               justifyContent: "center",
+              flexWrap: "wrap",
               gap: "1rem",
               mb: "1rem",
             }}
           >
-            {project.technologies.map((technology, index) => (
-              <Icon sx={{ color: theme.palette.text.secondary }} key={index}>
-                {technology}
-              </Icon>
+            {project.technologies.map((tech, index) => (
+              <Box key={index}>
+                <img src={tech.svg} alt={tech.name} width="40" height="35" />
+              </Box>
             ))}
           </CardActions>
         </Card>

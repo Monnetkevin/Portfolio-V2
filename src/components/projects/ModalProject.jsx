@@ -1,57 +1,63 @@
-import { useState } from "react";
+import React, { useRef, useEffect } from "react";
 import {
   Box,
-  Button,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogContentText,
-  MobileStepper,
-  Icon,
+  CardMedia,
+  Card,
 } from "@mui/material";
 import { RxCross2 } from "react-icons/rx";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import { ButtonProject2, ButtonProject } from "./ButtonProject";
+import { ButtonProject2 } from "./ButtonProject";
 import { useTheme } from "@mui/material/styles";
 
-import SwipeableViews from "react-swipeable-views-react-18-fix";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
 
 const Separator = () => {
   const theme = useTheme();
 
   return (
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box
+        sx={{
+          width: "50%",
+          height: "3px",
+          backgroundColor: theme.palette.secondary.main,
+          my: "2rem",
+        }}
+      />
+    </Box>
+  );
+};
+
+const TitleModal = ({ props }) => {
+  return (
     <Box
-      sx={{
-        width: "50%",
-        height: "3px",
-        backgroundColor: theme.palette.secondary.main,
-        my: "2rem",
-      }}
-    />
+      variant="h5"
+      component="h3"
+      sx={{ display: "flex", justifyContent: "center", color: "#000" }}
+    >
+      {props}
+    </Box>
   );
 };
 
 export const ModalProject = ({ open, handleClose, selectedProject }) => {
-  const [activeStep, setActiveStep] = useState(0);
-  const maxSteps = selectedProject?.images.length;
-  const theme = useTheme();
+  const swiperRef = useRef(null);
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleStepChange = (step: number) => {
-    setActiveStep(step);
-  };
-
-  // setTimeout(() => {
-  //   setActiveStep(activeStep === maxSteps - 1 ? 0 : activeStep + 1);
-  // }, 3000);
+  useEffect(() => {
+    if (swiperRef.current) {
+      const slides = swiperRef.current.slides;
+      slides.forEach((slide) => {
+        const img = slide.querySelector("img");
+        img.style.height = img.clientWidth + "px";
+      });
+    }
+  }, [selectedProject]);
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="md">
@@ -82,74 +88,44 @@ export const ModalProject = ({ open, handleClose, selectedProject }) => {
         {selectedProject?.title}
       </DialogTitle>
       <DialogContent>
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={activeStep}
-          onChangeIndex={handleStepChange}
-          enableMouseEvents
+        <Swiper
+          ref={swiperRef}
+          modules={[Pagination]}
+          pagination={{ dynamicBullets: true }}
+          spaceBetween={30}
+          slidesPerView={1}
+          navigation
         >
           {selectedProject?.images.map((image, index) => (
-            <Box component="div" key={index}>
-              {Math.abs(activeStep - index) <= 2 ? (
-                <Box
+            <SwiperSlide key={index}>
+              <Card>
+                <CardMedia
                   component="img"
                   sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    overflow: "hidden",
                     width: "100%",
+                    height: "auto",
                   }}
-                  src={image.path}
-                  alt={image.label}
+                  image={image.path}
+                  alt={`Image du projet ${image.label}`}
                 />
-              ) : null}
-            </Box>
+              </Card>
+            </SwiperSlide>
           ))}
-        </SwipeableViews>
-        <MobileStepper
-          steps={maxSteps}
-          position="static"
-          activeStep={activeStep}
-          nextButton={
-            <Button
-              size="small"
-              onClick={handleNext}
-              disabled={activeStep === maxSteps - 1}
-            >
-              Suivant
-              {theme.direction === "rtl" ? (
-                <KeyboardArrowLeft />
-              ) : (
-                <KeyboardArrowRight />
-              )}
-            </Button>
-          }
-          backButton={
-            <Button
-              size="small"
-              onClick={handleBack}
-              disabled={activeStep === 0}
-            >
-              {theme.direction === "rtl" ? (
-                <KeyboardArrowRight />
-              ) : (
-                <KeyboardArrowLeft />
-              )}
-              Retour
-            </Button>
-          }
-        />
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Separator />
-        </Box>
+        </Swiper>
 
-        <DialogContentText sx={{ color: "#000" }}>
+        <Separator />
+
+        <TitleModal props="Contenue du projet" />
+
+        <DialogContentText
+          sx={{ display: "flex", justifyContent: "center", color: "#000" }}
+        >
           {selectedProject?.content}
         </DialogContentText>
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Separator />
-        </Box>
+
+        <Separator />
+
+        <TitleModal props="Technologies" />
         <Box
           sx={{
             display: "flex",
@@ -159,45 +135,39 @@ export const ModalProject = ({ open, handleClose, selectedProject }) => {
           }}
         >
           {selectedProject?.technologies.map((tech, index) => (
-            <Icon key={index} sx={{ mr: "1rem" }}>
-              {tech}
-            </Icon>
+            <Box
+              key={index}
+              sx={{ mr: "1rem", color: "#000", fontSize: "1.5rem" }}
+            >
+              <img src={tech.svg} alt={tech.name} width="50" height="50" />
+            </Box>
           ))}
         </Box>
 
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Separator />
-        </Box>
+        <Separator />
 
         <Box component="div" sx={{ display: "flex", justifyContent: "center" }}>
           {selectedProject.github_back && selectedProject.github_front ? (
             <>
-              <ButtonProject href={selectedProject.github_back} target="_blank">
+              <ButtonProject2 href={selectedProject.github_back}>
                 Github back
-              </ButtonProject>
-              <ButtonProject2
-                href={selectedProject.github_front}
-                target="_blank"
-              >
+              </ButtonProject2>
+              <ButtonProject2 href={selectedProject.github_front}>
                 Github front
               </ButtonProject2>
             </>
           ) : (
-            <ButtonProject2
-              variant="outlined"
-              href={selectedProject.github}
-              target="_blank"
-            >
+            <ButtonProject2 href={selectedProject.github}>
               Voir le Github
             </ButtonProject2>
           )}
 
           {selectedProject.lien ? (
-            <ButtonProject2 href={selectedProject.lien} target="_blank">
+            <ButtonProject2 href={selectedProject.lien}>
               Voir le projet
             </ButtonProject2>
           ) : (
-            <ButtonProject2>Project local</ButtonProject2>
+            <ButtonProject2 disabled>Project local</ButtonProject2>
           )}
         </Box>
       </DialogContent>

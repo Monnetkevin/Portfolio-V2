@@ -1,15 +1,3 @@
-import {
-  FaReact,
-  FaPhp,
-  FaLaravel,
-  FaGithub,
-  FaTrello,
-  FaFigma,
-  FaSymfony,
-} from "react-icons/fa";
-import { IoLogoJavascript } from "react-icons/io";
-import { SiMysql } from "react-icons/si";
-
 export const PROJECTS = [
   {
     title: "It previs",
@@ -24,23 +12,20 @@ export const PROJECTS = [
         path: "/images/itprevis/itprevis-dashboard.png",
         label: "Dashboard",
       },
-      // "/images/itprevis/itprevis-home.png",
-      // "/images/itprevis/itprevis-dashboard.png",
     ],
     technologies: [
-      <FaReact alt="React" size="1.5rem" />,
-      <FaPhp size="1.5rem" />,
-      <FaLaravel size="1.5rem" />,
-      <FaGithub size="1.5rem" />,
-      <FaTrello size="1.5rem" />,
-      <FaFigma size="1.5rem" />,
-      <IoLogoJavascript size="1.5rem" />,
-      <SiMysql size="1.5rem" />,
+      {
+        name: "React",
+        svg: "/images/logoTechno/React-icon.svg",
+      },
+      {
+        name: "PHP",
+        svg: "/images/logoTechno/PHP-logo.svg",
+      },
     ],
     github_back: "https://github.com/Monnetkevin/api-itprevis",
     github_front: "https://github.com/Monnetkevin/front-itprevis",
     github: "https://github.com/Monnetkevin/front-itprevis",
-    // lien: "https://exemple.fr",
   },
   {
     title: "Ticket Helper",
@@ -56,13 +41,30 @@ export const PROJECTS = [
       },
     ],
     technologies: [
-      <FaPhp size="1.5rem" />,
-      <FaSymfony size="1.5rem" />,
-      <FaGithub size="1.5rem" />,
-      <FaTrello size="1.5rem" />,
-      <FaFigma size="1.5rem" />,
-      <IoLogoJavascript size="1.5rem" />,
-      <SiMysql size="1.5rem" />,
+      {
+        name: "React",
+        svg: "/images/logoTechno/React-icon.svg",
+      },
+      {
+        name: "PHP",
+        svg: "/images/logoTechno/PHP-logo.svg",
+      },
+      {
+        name: "Symfony",
+        svg: "/images/logoTechno/Symfony2.svg",
+      },
+      {
+        name: "Figma",
+        svg: "/images/logoTechno/Figma-logo.svg",
+      },
+      {
+        name: "Trello",
+        svg: "/images/logoTechno/trello.svg",
+      },
+      {
+        name: "MySQL",
+        svg: "/images/logoTechno/MySQL-Logo.wine.svg",
+      },
     ],
 
     github: "https://github.com/Monnetkevin/project_Tickets",

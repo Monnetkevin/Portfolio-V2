@@ -21,7 +21,7 @@ const Portfolio = () => {
         <Grid item xs={12} md={8}>
           <Box sx={{ marginBottom: "2rem" }}>
             <Typography variant="h2" component="h1" gutterBottom>
-              Concepteur développeur d'applications
+              Développeur Full Stack
             </Typography>
             <Box
               sx={{

@@ -31,18 +31,18 @@ export const ButtonProject = ({ children, ...props }) => {
 };
 
 export const ButtonProject2 = ({ children, ...props }) => {
-  const theme = useTheme();
   return (
     <Button
       {...props}
       variant="outlined"
+      target="_blank"
       sx={{
         mr: "1rem",
-        color: theme.palette.text.secondary,
-        borderColor: theme.palette.text.secondary,
+        color: "#000",
+        borderColor: "#000",
         "&:hover": {
-          borderColor: theme.palette.secondary.main,
-          color: theme.palette.secondary.main,
+          borderColor: "#005C53",
+          color: "#005C53",
         },
       }}
     >

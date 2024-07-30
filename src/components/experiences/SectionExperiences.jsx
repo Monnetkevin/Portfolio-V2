@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { Container, Box, Typography } from "@mui/material";
 import { EXPERIENCES } from "./Experiences";
 import { Chrono } from "react-chrono";
 import { useTheme } from "@mui/material/styles";
+import DarkModeContext from "../context/DarkModeContext";
 
 const SectionExperiences = () => {
   const theme = useTheme();
+  const { isDarkMode } = useContext(DarkModeContext);
   return (
     <Container maxWidth="xl" id="portfolio">
       <Box
@@ -41,7 +44,7 @@ const SectionExperiences = () => {
           primary: theme.palette.experience.main,
           secondary: theme.palette.secondary.main,
           cardBgColor: theme.palette.background.paper,
-          titleColor: theme.palette.text.secondary,
+          titleColor: theme.palette.text.primary,
           titleColorActive: theme.palette.tertiary.main,
         }}
         disableToolbar
