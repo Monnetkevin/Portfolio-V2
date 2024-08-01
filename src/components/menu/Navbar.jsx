@@ -36,10 +36,7 @@ export default function DrawerAppBar(props: Props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography
-        variant="h6"
-        sx={{ my: 2, color: theme.palette.text.secondary }}
-      >
+      <Typography variant="h6" sx={{ my: 2, color: "#000" }}>
         Kevin Monnet
       </Typography>
       <Divider />
@@ -47,10 +44,9 @@ export default function DrawerAppBar(props: Props) {
         {navItems.map((item) => (
           <ListItem key={item.menu} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText
-                primary={item.menu}
-                sx={{ color: theme.palette.text.secondary }}
-              />
+              <Button key={item.menu} sx={{ color: "#000" }} href={item.href}>
+                {item.menu}
+              </Button>
             </ListItemButton>
           </ListItem>
         ))}

@@ -112,19 +112,24 @@ export const ModalProject = ({ open, handleClose, selectedProject }) => {
             </SwiperSlide>
           ))}
         </Swiper>
-
         <Separator />
-
         <TitleModal props="Contenue du projet" />
-
         <DialogContentText
-          sx={{ display: "flex", justifyContent: "center", color: "#000" }}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            color: "#000",
+          }}
         >
-          {selectedProject?.content}
+          {selectedProject.content.split("\n").map((line, index) => (
+            <Box component="p" key={index}>
+              {line}
+            </Box>
+          ))}
         </DialogContentText>
 
         <Separator />
-
         <TitleModal props="Technologies" />
         <Box
           sx={{
@@ -143,9 +148,7 @@ export const ModalProject = ({ open, handleClose, selectedProject }) => {
             </Box>
           ))}
         </Box>
-
         <Separator />
-
         <Box component="div" sx={{ display: "flex", justifyContent: "center" }}>
           {selectedProject.github_back && selectedProject.github_front ? (
             <>
@@ -162,12 +165,10 @@ export const ModalProject = ({ open, handleClose, selectedProject }) => {
             </ButtonProject2>
           )}
 
-          {selectedProject.lien ? (
+          {selectedProject.lien && (
             <ButtonProject2 href={selectedProject.lien}>
               Voir le projet
             </ButtonProject2>
-          ) : (
-            <ButtonProject2 disabled>Project local</ButtonProject2>
           )}
         </Box>
       </DialogContent>

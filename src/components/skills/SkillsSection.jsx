@@ -35,21 +35,20 @@ const SkillsSection = () => {
 
       <Grid
         container
-        spacing={3}
-        alignItems="center"
+        spacing={2}
         sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "flex-start",
         }}
       >
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={4}>
           <SkillsWrapper skills={LANGAGES_ICONS} title={"Technologies"} />
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={4}>
           <SkillsWrapper skills={FRAMEWORKS_ICONS} title={"Frameworks"} />
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={4}>
           <SkillsWrapper skills={STACKS_ICONS} title={"Stacks"} />
         </Grid>
       </Grid>

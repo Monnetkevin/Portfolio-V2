@@ -6,7 +6,6 @@ import {
   CardMedia,
   CardContent,
   CardActions,
-  Icon,
 } from "@mui/material";
 import { ButtonProject } from "./ButtonProject";
 import { ModalProject } from "./ModalProject";
@@ -137,7 +136,7 @@ const ProjectsWrapper = ({ projects }) => {
             }}
           >
             {project.technologies.map((tech, index) => (
-              <Box key={index}>
+              <Box component="div" key={index}>
                 <img src={tech.svg} alt={tech.name} width="40" height="35" />
               </Box>
             ))}

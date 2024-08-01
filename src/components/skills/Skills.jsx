@@ -1,35 +1,60 @@
-import {
-  FaHtml5,
-  FaReact,
-  FaPhp,
-  FaLaravel,
-  FaSymfony,
-  FaGithub,
-  FaTrello,
-  FaWindows,
-  FaFigma,
-  FaCss3,
-} from "react-icons/fa";
-import { IoLogoJavascript } from "react-icons/io";
-import { SiMysql } from "react-icons/si";
-
 export const LANGAGES_ICONS = [
-  { name: "HTML", icon: <FaHtml5 size="2rem" /> },
-  { name: "CSS", icon: <FaCss3 size="2rem" /> },
-  { name: "JavaScript", icon: <IoLogoJavascript size="2rem" /> },
-  { name: "PHP", icon: <FaPhp size="2rem" /> },
-  { name: "MySQL", icon: <SiMysql size="2rem" /> },
+  {
+    name: "HTML",
+    svg: "/images/logoTechno/HTML5_Badge.svg",
+  },
+  {
+    name: "CSS",
+    svg: "/images/logoTechno/CSS3_logo.svg",
+  },
+  {
+    name: "JavaScript",
+    svg: "/images/logoTechno/Unofficial_JavaScript_logo_2.svg",
+  },
+  {
+    name: "PHP",
+    svg: "/images/logoTechno/PHP-logo.svg",
+  },
+  {
+    name: "MySQL",
+    svg: "/images/logoTechno/MySQL-Logo.wine.svg",
+  },
 ];
 
 export const FRAMEWORKS_ICONS = [
-  { name: "React", icon: <FaReact size="2rem" /> },
-  { name: "Laravel", icon: <FaLaravel size="2rem" /> },
-  { name: "Symfony", icon: <FaSymfony size="2rem" /> },
+  {
+    name: "React",
+    svg: "/images/logoTechno/React-icon.svg",
+  },
+  {
+    name: "Laravel",
+    svg: "/images/logoTechno/Laravel-Logo.wine.svg",
+  },
+  {
+    name: "Symfony",
+    svg: "/images/logoTechno/Symfony2.svg",
+  },
+  {
+    name: "Material UI",
+    svg: "/images/logoTechno/material-ui-1.svg",
+  },
 ];
 
 export const STACKS_ICONS = [
-  { name: "Github", icon: <FaGithub size="2rem" /> },
-  { name: "Trello", icon: <FaTrello size="2rem" /> },
-  { name: "Windows", icon: <FaWindows size="2rem" /> },
-  { name: "Figma", icon: <FaFigma size="2rem" /> },
+  {
+    name: "Trello",
+    svg: "/images/logoTechno/trello.svg",
+  },
+  {
+    name: "Git",
+    svg: "/images/logoTechno/git-icon.svg",
+  },
+  {
+    name: "Windows",
+    svg: "/images/logoTechno/microsoft-windows-22.svg",
+  },
+  {
+    name: "Figma",
+    svg: "/images/logoTechno/Figma-logo.svg",
+  },
 ];

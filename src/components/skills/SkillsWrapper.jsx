@@ -5,7 +5,7 @@ const SkillsWrapper = ({ skills, title }) => {
   const theme = useTheme();
 
   return (
-    <Box>
+    <Box component="div" sx={{ m: { md: "2rem" } }}>
       <Typography
         variant="h3"
         sx={{
@@ -25,14 +25,14 @@ const SkillsWrapper = ({ skills, title }) => {
           color: theme.palette.text.primary,
         }}
       >
-        {skills.map(({ name, icon }) => (
-          <ListItem key={name} sx={{ display: "flex", alignItems: "center" }}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              {icon}
-              <Typography variant="h6" sx={{ ml: 3 }}>
-                {name}
-              </Typography>
+        {skills.map((skill, index) => (
+          <ListItem key={index} sx={{ display: "flex" }}>
+            <Box component="div" sx={{ display: "flex", alignItems: "center" }}>
+              <img src={skill.svg} alt={skill.name} width="40" height="35" />
             </Box>
+            <Typography variant="h6" sx={{ ml: 3 }}>
+              {skill.name}
+            </Typography>
           </ListItem>
         ))}
       </List>

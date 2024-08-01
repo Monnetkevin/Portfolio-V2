@@ -50,7 +50,15 @@ const StyleTextField = () => {
 
 const ContactForm = () => {
   const theme = useTheme();
-  const { control, handleSubmit, reset } = useForm();
+  const { control, handleSubmit, reset } = useForm({
+    defaultValues: {
+      name: "",
+      firstName: "",
+      subject: "",
+      email: "",
+      content: "",
+    },
+  });
   const [sent, setSent] = useState(false);
 
   const sendEmail = (data) => {
@@ -59,11 +67,11 @@ const ContactForm = () => {
       .then(
         (res) => {
           setSent(true);
+          reset();
         },
         (err) => {
           console.log(err.text);
-        },
-        reset()
+        }
       );
   };
 
@@ -100,7 +108,10 @@ const ContactForm = () => {
                   label="Nom"
                   fullWidth={matches}
                   margin="normal"
-                  sx={StyleTextField()}
+                  sx={{
+                    ...StyleTextField(),
+                    width: { xl: "100%", md: "100%" },
+                  }}
                   error={!!error}
                   helperText={error ? error.message : null}
                   required
@@ -135,7 +146,10 @@ const ContactForm = () => {
                   label="Prénom"
                   margin="normal"
                   fullWidth={matches}
-                  sx={StyleTextField()}
+                  sx={{
+                    ...StyleTextField(),
+                    width: { xl: "100%", md: "100%" },
+                  }}
                   error={!!error}
                   helperText={error ? error.message : null}
                   required
@@ -233,6 +247,7 @@ const ContactForm = () => {
           color="success"
           type="submit"
           margin="normal"
+          onClick={() => reset()}
         >
           Envoyer
         </Button>
